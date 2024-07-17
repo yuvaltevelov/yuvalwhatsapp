@@ -3,7 +3,7 @@ document.getElementById('openChat').addEventListener('click', function() {
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
     
     if (phoneNumber) {
-        document.getElementById('phoneNumberDisplay').textContent = countryCode + "-" + phoneNumber;
+        document.getElementById('phoneNumberDisplay').textContent = phoneNumber + "-" + countryCode;
         document.getElementById('confirmationPopup').style.display = 'block';
     } else {
         alert('Please enter a valid phone number.');
