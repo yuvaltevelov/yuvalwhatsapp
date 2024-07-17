@@ -3,8 +3,14 @@ document.getElementById('openChat').addEventListener('click', function() {
     const phoneNumber = document.getElementById('phoneNumber').value.trim();
     
     if (phoneNumber) {
-        document.getElementById('phoneNumberDisplay').textContent = phoneNumber + "-" + countryCode;
+        document.getElementById('phoneNumberDisplay').textContent = countryCode + phoneNumber;
         document.getElementById('confirmationPopup').style.display = 'block';
+
+        // Save to search history
+        let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+        searchHistory.push({ countryCode, phoneNumber });
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        updateSearchHistory();
     } else {
         alert('Please enter a valid phone number.');
     }
@@ -383,3 +389,38 @@ document.getElementById('icon9').addEventListener('click', function() {
 document.getElementById('icon10').addEventListener('click', function() {
     window.open('http://gema.dhl.com/GemaAccessServlet', '_blank');
 });
+
+
+// Toggle light/dark mode
+const modeToggle = document.getElementById('modeToggle');
+
+modeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('light-mode');
+    document.querySelector('footer').classList.toggle('light-mode');
+    document.getElementById('searchHistory').classList.toggle('light-mode');
+});
+
+// Search history
+function updateSearchHistory() {
+    const historyList = document.getElementById('historyList');
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    historyList.innerHTML = '';
+
+    searchHistory.forEach(({ countryCode, phoneNumber }) => {
+        const li = document.createElement('li');
+        li.textContent = `${countryCode} ${phoneNumber}`;
+        historyList.appendChild(li);
+    });
+}
+
+document.getElementById('countrySearch').addEventListener('focus', function() {
+    document.getElementById('searchHistory').style.display = 'block';
+});
+
+document.getElementById('countrySearch').addEventListener('blur', function() {
+    setTimeout(() => {
+        document.getElementById('searchHistory').style.display = 'none';
+    }, 200);
+});
+
+updateSearchHistory();
