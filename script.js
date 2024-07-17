@@ -378,5 +378,5 @@ document.getElementById('icon8').addEventListener('click', function() {
 });
 
 document.getElementById('icon9').addEventListener('click', function() {
-    window.open('https://example.com', '_blank');
+    window.open('https://info.dhl.com/home', '_blank');
 });
