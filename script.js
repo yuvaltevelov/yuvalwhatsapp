@@ -380,3 +380,6 @@ document.getElementById('icon8').addEventListener('click', function() {
 document.getElementById('icon9').addEventListener('click', function() {
     window.open('https://info.dhl.com/home', '_blank');
 });
+document.getElementById('icon10').addEventListener('click', function() {
+    window.open('http://gema.dhl.com/GemaAccessServlet', '_blank');
+});
