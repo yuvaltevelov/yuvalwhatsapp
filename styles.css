@@ -123,6 +123,15 @@ body.light-mode #phoneNumber {
     color: #1e1e1e;
 }
 
+.buttons-history {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons-history button {
+    padding: 6px;
+}
+
 button {
     background-color: #25D366;
     color: white;
@@ -148,6 +157,7 @@ body.light-mode button {
 body.light-mode button:hover {
     background-color: #0056b3;
 }
+
 
 .popup {
     display: none;
