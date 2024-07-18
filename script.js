@@ -8,7 +8,9 @@ document.getElementById('openChat').addEventListener('click', function() {
 
         // Save to search history
         let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-        searchHistory.push({ countryCode, phoneNumber });
+       // searchHistory.push({ countryCode, phoneNumber });
+        addToSearchHistory({ countryCode, phoneNumber });
+
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
         updateSearchHistory();
     } else {
@@ -388,8 +390,16 @@ document.getElementById('icon9').addEventListener('click', function() {
 });
 document.getElementById('icon10').addEventListener('click', function() {
     window.open('http://gema.dhl.com/GemaAccessServlet', '_blank');
+}); 
+document.getElementById('icon11').addEventListener('click', function() {
+    window.open('http://czchowspc000429.prg-dc.dhl.com/Quick_Send_Site-new/CMF.aspx', '_blank');
 });
-
+document.getElementById('icon12').addEventListener('click', function() {
+    window.open('https://gcpt.dhl.com/portal-gcpt/#/auth', '_blank');
+});
+document.getElementById('icon13').addEventListener('click', function() {
+    window.open('https://gsrt.dhl.com/GSRT342/#/login', '_blank');
+});
 
 // Toggle light/dark mode
 const modeToggle = document.getElementById('modeToggle');
@@ -419,8 +429,76 @@ document.getElementById('countrySearch').addEventListener('focus', function() {
 
 document.getElementById('countrySearch').addEventListener('blur', function() {
     setTimeout(() => {
-        document.getElementById('searchHistory').style.display = 'none';
+        document.getElementById('searchHistory').style.display = 'block';
     }, 200);
 });
+
+
+document.getElementById('hideHistory').addEventListener('click', function() {
+    const searchHistory = document.getElementById('searchHistory');
+    const hideHistoryButton = document.getElementById('hideHistory');
+
+    if (searchHistory.style.display === 'none' || searchHistory.style.display === '' || !JSON.stringify(searchHistory)) {
+        searchHistory.style.display = 'block';
+        hideHistoryButton.textContent = 'Hide History';
+    } else {
+        searchHistory.style.display = 'none';
+        hideHistoryButton.textContent = 'Show History';
+    }
+});
+
+
+// Function to render the search history
+function renderSearchHistory() {
+    const historyList = document.getElementById('historyList');
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+    // Clear existing list items
+    historyList.innerHTML = '';
+
+    // Populate the list with search history
+    searchHistory.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${item.countryCode} ${item.phoneNumber}`;
+        historyList.appendChild(listItem);
+    });
+}
+
+// Function to add an item to the search history
+function addToSearchHistory(item) {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    searchHistory.push(item);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    renderSearchHistory();
+}
+
+// Event listener for opening the chat
+document.getElementById('openChat').addEventListener('click', function() {
+    const countryCode = document.getElementById('countryCode').value;
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    
+    if (phoneNumber) {
+        document.getElementById('phoneNumberDisplay').textContent = countryCode + phoneNumber;
+        document.getElementById('confirmationPopup').style.display = 'block';
+
+        // Save to search history
+        addToSearchHistory({ countryCode, phoneNumber });
+    } else {
+        alert('Please enter a valid phone number.');
+    }
+});
+
+// Event listener for clearing the search history
+document.getElementById('clearHistory').addEventListener('click', function() {
+    localStorage.removeItem('searchHistory');
+    renderSearchHistory();
+});
+
+// Call renderSearchHistory on page load
+document.addEventListener('DOMContentLoaded', renderSearchHistory);
+
+
+
+
 
 updateSearchHistory();
