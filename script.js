@@ -400,6 +400,13 @@ document.getElementById('icon12').addEventListener('click', function() {
 document.getElementById('icon13').addEventListener('click', function() {
     window.open('https://gsrt.dhl.com/GSRT342/#/login', '_blank');
 });
+document.getElementById('icon14').addEventListener('click', function() {
+    window.open('https://dpdhl.sharepoint.com/:x:/r/teams/LQTeam916/_layouts/15/doc2.aspx?sourcedoc=%7B60360cbc-a1f3-42e6-8d45-f2bec9708903%7D&action=edit&activeCell=%27Sheet1%27!D377&wdinitialsession=5251c0d0-3c8f-8ea8-d80c-3379bdfd8ced&wdrldsc=9&wdrldc=1&wdrldr=AccessTokenExpiredWarningOrgPolicyRestriction%2CRefr', '_blank');
+});
+
+
+
+
 
 // Toggle light/dark mode
 const modeToggle = document.getElementById('modeToggle');
